@@ -81,15 +81,27 @@ public class TeleoperadoSp extends OpMode {
     //TODO:Servo
     //TODO: verificar valores
     public void servo() {
-        //botar botão depois
+        //TODO: abrir e fechar
         if (gamepad2.right_stick_button) {
             //abrir
             ponta.setPosition(0.0);
-
         }
         if (gamepad2.left_stick_button){
             //fechar
             ponta.setPosition(1.0);
+        }
+
+        //TODO: Garra
+        if(gamepad2.y){
+            //posição pick
+            garra.setPosition(0);
+            telemetry.addLine("Pick");
+        }else if(gamepad2.a){
+            garra.setPosition(0.95);
+            telemetry.addLine("Clip");
+        }else if(gamepad2.b){
+            garra.setPosition(0.6);
+            telemetry.addLine("90");
         }
     }
 

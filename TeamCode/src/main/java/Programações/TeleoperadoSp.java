@@ -3,7 +3,7 @@ package Programações;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Constants;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -15,12 +15,13 @@ import pedroPathing.constants.LConstants;
 @TeleOp(name = "teleoperadodoisestagios", group = "Examples")
 public class TeleoperadoSp extends OpMode {
 
+    private DcMotorEx slide;
+    boolean holdingPosition = false, modeBase = false;
     private DcMotorEx Esq, Dir;
     //eixo e abrie e fechar
     Servo garra, ponta;
     private Follower follower;
-    boolean holdingPosition = false;
-    private final Pose startPose = new Pose(0,0,0);
+    private final Pose startPose = new Pose(0, 0, 0);
 
     @Override
     public void init() {
@@ -40,7 +41,8 @@ public class TeleoperadoSp extends OpMode {
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
         follower.setStartingPose(startPose);
-
+        Esq.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Dir.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //fechar
         ponta.setPosition(1.0);
     }
@@ -55,11 +57,11 @@ public class TeleoperadoSp extends OpMode {
     }
 
     @Override
-    public void loop(){
+    public void loop() {
 
-        subir();
-        descer();
-
+        base();
+        atuador();
+        servo();
         follower.setTeleOpMovementVectors(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
         follower.update();
 
@@ -73,64 +75,77 @@ public class TeleoperadoSp extends OpMode {
     }
 
     @Override
-    public void stop() {}
-    public void abrir(){
+    public void stop() {
+    }
+
+    //TODO:Servo
+    //TODO: verificar valores
+    public void servo() {
         //botar botão depois
-        if(gamepad2.y){
+        if (gamepad2.right_stick_button) {
+            //abrir
+            ponta.setPosition(0.0);
 
         }
+        if (gamepad2.left_stick_button){
+            //fechar
+            ponta.setPosition(1.0);
+        }
     }
-    
 
-    public void base(){
+    //TODO:BASE
+    //TODO: verificar valores
+    public void base() {
 
         double j = -gamepad2.right_stick_y;
-        int currentL = armMotorL.getCurrentPosition();
-        int currentR = armMotorR.getCurrentPosition();
+        int currentL = Esq.getCurrentPosition();
+        int currentR = Dir.getCurrentPosition();
 
         // Se o joystick for movido para cima e a posição for menor que 0, move o motor
         if (j > 0) {
-            armMotorL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            armMotorL.setPower(0.35);
+            Esq.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Esq.setPower(0.35);
 
-            armMotorR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            armMotorR.setPower(0.35);
+            Dir.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Dir.setPower(0.35);
 
             modeBase = false; // O motor está se movendo, então não está segurando posição
         }
         // Se o joystick for movido para baixo e ainda não atingiu o limite, move o motor
         else if (j < 0) {
-            armMotorL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            armMotorL.setPower(-0.22);
+            Esq.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Esq.setPower(-0.22);
 
-            armMotorR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            armMotorR.setPower(-0.22);
+            Dir.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Dir.setPower(-0.22);
             modeBase = false; // O motor está se movendo, então não está segurando posição
         }
         // Se o joystick estiver parado e o motor ainda não estiver segurando a posição
         else if (!modeBase) {
 
-            armMotorL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            armMotorR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Esq.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Dir.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             // O operador ! (negação) verifica se holdingPosition é false
-            armMotorL.setTargetPosition(currentL); // Define a posição atual como alvo
-            armMotorL.setMode(DcMotor.RunMode.RUN_TO_POSITION); // Mantém o motor na posição
-            armMotorL.setPower(1); // Aplica uma pequena potência para segurar a posição
+            Esq.setTargetPosition(currentL); // Define a posição atual como alvo
+            Esq.setMode(DcMotor.RunMode.RUN_TO_POSITION); // Mantém o motor na posição
+            Esq.setPower(1); // Aplica uma pequena potência para segurar a posição
 
-            armMotorR.setTargetPosition(currentR); // Define a posição atual como alvo
-            armMotorR.setMode(DcMotor.RunMode.RUN_TO_POSITION); // Mantém o motor na posição
-            armMotorR.setPower(1);
+            Dir.setTargetPosition(currentR); // Define a posição atual como alvo
+            Dir.setMode(DcMotor.RunMode.RUN_TO_POSITION); // Mantém o motor na posição
+            Dir.setPower(1);
 
             modeBase = true; // Marca que o motor está segurando a posição
         }
 
-        if(gamepad2.dpad_up){
-            armMotorL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            armMotorR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        if (gamepad2.dpad_up) {
+            Esq.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            Dir.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
-            }
-    public void atuador(){
+    }
+    //TODO: Slide
+    //TODO: verificar valores
+    public void atuador() {
 
         int current = slide.getCurrentPosition();
         int limit = -2990;
@@ -156,7 +171,7 @@ public class TeleoperadoSp extends OpMode {
             holdingPosition = true; // Marca que o motor está segurando a posição
         }
 
-        if(gamepad2.x){
+        if (gamepad2.x) {
             slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
     }

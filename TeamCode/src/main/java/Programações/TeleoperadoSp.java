@@ -25,6 +25,11 @@ public class TeleoperadoSp extends OpMode {
 
     @Override
     public void init() {
+        slide = hardwareMap.get(DcMotorEx.class, "slide");
+        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         Esq = hardwareMap.get(DcMotorEx.class, "Esq");
         Esq.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         Esq.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -44,6 +49,7 @@ public class TeleoperadoSp extends OpMode {
         Esq.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Dir.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //fechar
+
         ponta.setPosition(1.0);
     }
 
@@ -58,7 +64,6 @@ public class TeleoperadoSp extends OpMode {
 
     @Override
     public void loop() {
-
         base();
         atuador();
         servo();

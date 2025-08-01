@@ -14,6 +14,7 @@ import pedroPathing.constants.LConstants;
 
 @TeleOp(name = "teleoperadodoisestagios", group = "Examples")
 public class TeleoperadoSp extends OpMode {
+    int estado;
 
     private DcMotorEx slide;
     boolean holdingPosition = false, modeBase = false;
@@ -64,6 +65,23 @@ public class TeleoperadoSp extends OpMode {
 
     @Override
     public void loop() {
+
+        if (gamepad1.a) {
+            estado = 2;
+        } else if (gamepad1.b) {
+            estado = 1;
+        }
+
+        if (estado == 1) {
+            follower.setTeleOpMovementVectors(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
+            follower.update();
+            telemetry.addLine("Normal Chassi");
+        } else if (estado == 2) {
+            follower.setTeleOpMovementVectors(gamepad1.left_stick_y, gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
+            follower.update();
+            telemetry.addLine("Inverso Chassi");
+
+        }
         base();
         atuador();
         servo();

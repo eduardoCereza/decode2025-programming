@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-@TeleOp(name = "teleoperadodoisestagios", group = "Examples")
+@TeleOp(name = "São Paulo", group = "São Paul")
 public class TeleoperadoSp extends OpMode {
     int estado;
 
@@ -66,27 +66,27 @@ public class TeleoperadoSp extends OpMode {
     @Override
     public void loop() {
 
+
         if (gamepad1.a) {
             estado = 2;
         } else if (gamepad1.b) {
             estado = 1;
         }
 
+
         if (estado == 1) {
             follower.setTeleOpMovementVectors(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
             follower.update();
-            telemetry.addLine("Normal Chassi");
-        } else if (estado == 2) {
-            follower.setTeleOpMovementVectors(gamepad1.left_stick_y, gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
-            follower.update();
             telemetry.addLine("Inverso Chassi");
+        } else if (estado == 2) {
+            follower.setTeleOpMovementVectors(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, true);
+            follower.update();
+            telemetry.addLine("Normal Chassi");
 
         }
         base();
         atuador();
         servo();
-        follower.setTeleOpMovementVectors(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
-        follower.update();
 
         /* Telemetry Outputs of our Follower */
         telemetry.addData("X", follower.getPose().getX());
@@ -108,8 +108,7 @@ public class TeleoperadoSp extends OpMode {
         if (gamepad2.right_stick_button) {
             //abrir
             ponta.setPosition(0.0);
-        }
-        if (gamepad2.left_stick_button){
+        }else{
             //fechar
             ponta.setPosition(1.0);
         }
@@ -193,7 +192,7 @@ public class TeleoperadoSp extends OpMode {
             holdingPosition = false; // O motor está se movendo, então não está segurando posição
         }
         // Se o joystick for movido para baixo e ainda não atingiu o limite, move o motor
-        else if (joystickInput < 0 && current > limit) {
+        else if (joystickInput < 0 /*&& current > limit*/) {
             slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             slide.setPower(joystickInput);
             holdingPosition = false; // O motor está se movendo, então não está segurando posição

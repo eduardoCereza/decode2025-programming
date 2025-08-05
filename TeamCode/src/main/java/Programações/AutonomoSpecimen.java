@@ -4,6 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
+import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
@@ -28,6 +29,7 @@ import pedroPathing.constants.LConstants;
 public class AutonomoSpecimen extends OpMode {
     Limelight3A limelight;
     private Servo servo;
+    double tx, ty, ta;
     Pose pose;
     AtuadorDoisEstagios_VerticalHorizontal atuador;
     AtuadorDoisEstagios_Servos servos;
@@ -103,6 +105,13 @@ public class AutonomoSpecimen extends OpMode {
                 setPathState(2);
                 break;
             case 2:
+                LLResult result = limelight.getLatestResult();
+                if (result != null && result.isValid()) {
+                    tx = result.getTx();
+                    ta = result.getTa();
+                    // entra no controle por visão
+                    limelight.getLatestResult().getPythonOutput();
+                    }
                 break;
         }
     }
@@ -126,9 +135,9 @@ public class AutonomoSpecimen extends OpMode {
         pose = follower.getPose();
 
         if (result != null && result.isValid()) {
-            double tx = result.getTx(); // How far left or right the target is (degrees)
-            double ty = result.getTy(); // How far up or down the target is (degrees)
-            double ta = result.getTa(); // How big the target looks (0%-100% of the image)
+            tx = result.getTx(); // How far left or right the target is (degrees)
+            ty = result.getTy(); // How far up or down the target is (degrees)
+            ta = result.getTa(); // How big the target looks (0%-100% of the image)
 
             telemetry.addData("Target X", tx);
             telemetry.addData("Target Y", ty);

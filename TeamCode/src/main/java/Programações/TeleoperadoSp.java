@@ -18,6 +18,7 @@ public class TeleoperadoSp extends OpMode {
 
     private DcMotorEx slide;
     boolean holdingPosition = false, modeBase = false;
+    int aberto;
     private DcMotorEx Esq, Dir;
     //eixo e abrie e fechar
     Servo garra, ponta;
@@ -51,7 +52,7 @@ public class TeleoperadoSp extends OpMode {
         Dir.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //fechar
 
-        ponta.setPosition(1.0);
+        //ponta.setPosition(1.0);
     }
 
     @Override
@@ -65,7 +66,6 @@ public class TeleoperadoSp extends OpMode {
 
     @Override
     public void loop() {
-
 
         if (gamepad1.a) {
             estado = 2;
@@ -105,12 +105,18 @@ public class TeleoperadoSp extends OpMode {
     //TODO: verificar valores
     public void servo() {
         //TODO: abrir e fechar
-        if (gamepad2.right_stick_button) {
+        if (gamepad2.right_bumper) {
             //abrir
-            ponta.setPosition(0.0);
+            aberto = 1;
         }else{
             //fechar
-            ponta.setPosition(1.0);
+            aberto = 2;
+        }
+
+        if (aberto == 1){
+            ponta.setPosition(1);
+        } else if (aberto == 2) {
+            ponta.setPosition(0);
         }
 
         //TODO: Garra
@@ -119,7 +125,7 @@ public class TeleoperadoSp extends OpMode {
             garra.setPosition(0);
             telemetry.addLine("Pick");
         }else if(gamepad2.a){
-            garra.setPosition(0.95);
+            garra.setPosition(1);
             telemetry.addLine("Clip");
         }else if(gamepad2.b){
             garra.setPosition(0.6);

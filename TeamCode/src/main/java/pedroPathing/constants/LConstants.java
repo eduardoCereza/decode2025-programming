@@ -6,9 +6,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class LConstants {
     static {
-        DriveEncoderConstants.forwardTicksToInches = -0.00578236958;
-        DriveEncoderConstants.strafeTicksToInches = -0.00708145886;
-        DriveEncoderConstants.turnTicksToInches = -0.0317666667;
+        DriveEncoderConstants.forwardTicksToInches = 1;
+        DriveEncoderConstants.strafeTicksToInches = 1;
+        DriveEncoderConstants.turnTicksToInches = 1;
 
         DriveEncoderConstants.robot_Width = 16.9291;
         DriveEncoderConstants.robot_Length = 16.9291;

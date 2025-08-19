@@ -32,7 +32,6 @@ public class AutonomoCesta extends OpMode {
 
         switch (pathState){
             case 0:{
-                moverAtuador(-250);
                 setPathState(1);
             }
         }
@@ -73,7 +72,6 @@ public class AutonomoCesta extends OpMode {
         follower.update();
         autonomousPathUpdate();
 
-        moverAtuador(-250);
     }
 
     @Override
@@ -82,19 +80,4 @@ public class AutonomoCesta extends OpMode {
         setPathState(0);
     }
 
-    public void moverAtuador(/*double kp,*/ int target){
-        int encoderPosition = -leftArm.getCurrentPosition();
-        leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        if (encoderPosition < (-target)){
-            leftArm.setPower(1);
-            rightArm.setPower(1);
-        }else{
-            leftArm.setPower(-1);
-            rightArm.setPower(-1);
-        }
-
-        telemetry.addData("Encoder Position: ", encoderPosition);
-        telemetry.addData("Target: ", target);
-    }
 }

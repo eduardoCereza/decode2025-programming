@@ -74,7 +74,6 @@ public class AutonomoCesta extends OpMode {
         autonomousPathUpdate();
 
         moverAtuador(-250);
-
     }
 
     @Override

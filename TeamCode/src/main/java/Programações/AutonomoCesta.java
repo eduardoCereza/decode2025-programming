@@ -27,16 +27,14 @@ public class AutonomoCesta extends OpMode {
     public void buildPaths(){
 
     }
-    
+
 
     public void autonomousPathUpdate(){
 
-        switch (pathState){
-            case 0:{
+if(pathState == 1){
                 moverAtuador(-250);
-                setPathState(1);
+                setPathState(2);
             }
-        }
 
     }
 
@@ -80,7 +78,7 @@ public class AutonomoCesta extends OpMode {
     @Override
     public void start() {
         opmodeTimer.resetTimer();
-        setPathState(0);
+        setPathState(1);
     }
 
     public void moverAtuador(/*double kp,*/ int target){

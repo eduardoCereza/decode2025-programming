@@ -28,14 +28,8 @@ public class AutonomoCesta extends OpMode {
 
     }
 
+
     public void autonomousPathUpdate(){
-
-        switch (pathState){
-            case 0:{
-                setPathState(1);
-            }
-        }
-
     }
 
     public void setPathState(int pState){
@@ -77,7 +71,7 @@ public class AutonomoCesta extends OpMode {
     @Override
     public void start() {
         opmodeTimer.resetTimer();
-        setPathState(0);
+        setPathState(1);
     }
 
 }

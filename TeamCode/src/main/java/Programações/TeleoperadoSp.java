@@ -178,6 +178,9 @@ public class TeleoperadoSp extends OpMode {
             modeBase = true; // Marca que o motor está segurando a posição
         }
 
+        telemetry.addData("Posição atuador esquerdo", Esq.getCurrentPosition());
+        telemetry.addData("Posição atuador direito", Dir.getCurrentPosition());
+
         if (gamepad2.dpad_up) {
             Esq.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             Dir.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

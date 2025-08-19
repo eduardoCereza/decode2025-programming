@@ -20,10 +20,12 @@ import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
+
 import Robô.AtuadorDoisEstagios_Servos;
 import Robô.AtuadorDoisEstagios_VerticalHorizontal;
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+
 
 @Autonomous(name = "Clip México Oficial")
 public class AutonomoSpecimen extends OpMode {

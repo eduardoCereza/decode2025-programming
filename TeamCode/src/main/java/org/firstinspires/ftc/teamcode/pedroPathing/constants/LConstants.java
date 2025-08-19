@@ -7,33 +7,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class LConstants {
     static {
-        //Definir distancia dos PODS do centro do robô
-        PinpointConstants.forwardY = 1;
-        PinpointConstants.strafeX = -2.5;
-        //Definir a unidade de medida para medir a distancia
-        PinpointConstants.distanceUnit = DistanceUnit.CM;
-        //nome do pinpoint no DRIVE HUB
-        PinpointConstants.hardwareMapName = "pinpoint";
-        //"Escalar de guinada"
-        PinpointConstants.useYawScalar = false;
-        PinpointConstants.yawScalar = 1.0;
-        //Se você estiver usando uma resolução de codificador personalizada
-        PinpointConstants.useCustomEncoderResolution = false;
-        //Resolução do enconder
-        PinpointConstants.encoderResolution = GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD;
-        PinpointConstants.customEncoderResolution = 13.26291192;
-        /*
-        Definir a direção do X e Y.
+        DriveEncoderConstants.forwardTicksToInches = 1;
+        DriveEncoderConstants.strafeTicksToInches = 1;
+        DriveEncoderConstants.turnTicksToInches = 1;
 
-        Se o valor de X cai quando o robô se move para a frente, inverte a
-        direção alterando o  GoBildaPinpointDriver.EncoderDirection (fowardEncoder).
+        DriveEncoderConstants.robot_Width = 1;
+        DriveEncoderConstants.robot_Length = 1;
 
-        Se o valor de Y diminui quando o robô se move para a esquerda, inverta a direção mudando
-        o GoBildaPinpointDriver.EncoderDirection (strafeEncoder).
-        */
-        PinpointConstants.forwardEncoderDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-        PinpointConstants.strafeEncoderDirection = GoBildaPinpointDriver.EncoderDirection.FORWARD;
-
+        DriveEncoderConstants.leftFrontEncoderDirection = Encoder.REVERSE;
+        DriveEncoderConstants.rightFrontEncoderDirection = Encoder.FORWARD;
+        DriveEncoderConstants.leftRearEncoderDirection = Encoder.REVERSE;
+        DriveEncoderConstants.rightRearEncoderDirection = Encoder.FORWARD;
     }
 }
 

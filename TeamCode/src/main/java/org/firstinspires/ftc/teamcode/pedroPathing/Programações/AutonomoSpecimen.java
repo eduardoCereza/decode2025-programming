@@ -1,10 +1,9 @@
-package Programações;
+package org.firstinspires.ftc.teamcode.pedroPathing.Programações;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
-import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
@@ -13,18 +12,14 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.pedropathing.pathgen.Point;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
-import com.qualcomm.hardware.limelightvision.LLResultTypes;
-import com.qualcomm.hardware.limelightvision.LLStatus;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 
-import Robô.AtuadorDoisEstagios_Servos;
-import Robô.AtuadorDoisEstagios_VerticalHorizontal;
+import org.firstinspires.ftc.teamcode.pedroPathing.Robô.AtuadorDoisEstagios_Servos;
+import org.firstinspires.ftc.teamcode.pedroPathing.Robô.AtuadorDoisEstagios_VerticalHorizontal;
 
 
 @Autonomous(name = "Clip México Oficial")
@@ -45,7 +40,7 @@ public class AutonomoSpecimen extends OpMode {
     private final Pose controle= new Pose(22.065, 4.645, Point.CARTESIAN);
     private final Pose control2 = new Pose(61.000, 59.000, Point.CARTESIAN);
     private final Pose ponto4 = new Pose(58.000, 27.000, Point.CARTESIAN);
-    private final Pose startPose = new Pose(0, 70, Math.toRadians(180.00));
+    private final Pose startPose = new Pose(-50, -33, Math.toRadians(180.00));
     private final Pose ClipPose = new Pose(23, 70, Math.toRadians(180.00));
     private final Pose Move1 = new Pose(23, 50, Math.toRadians(180.00));
     private final Pose Move2 = new Pose(40, 50, Math.toRadians(180.00));
